@@ -80,6 +80,27 @@ explore: events {
     sql_on: ${events.id} = ${locations.id};;
     relationship: one_to_one
   }
+
+  join: ride_info {
+    type: inner
+    required_joins: [locations]
+    sql_on: ${locations.id} = ${ride_info.dropoff_location} ;;
+    relationship: one_to_one
+  }
+
+  join: ride_passengers {
+    type: left_outer
+    required_joins: [ride_info]
+    sql_on: ${ride_info.ride_id} = ${ride_passengers.ride_id} ;;
+    relationship: one_to_many
+  }
+
+  join: people {
+    type: left_outer
+    required_joins: [ride_passengers]
+    sql_on: ${ride_passengers.passenger_id} = ${people.id} ;;
+    relationship: one_to_one
+  }
 }
 
 explore: financial_status {}
@@ -208,6 +229,19 @@ explore: ride_info {
     sql_on: ${ride_info.dropoff_location} = ${dropoff_location.id} ;;
     relationship: many_to_one
   }
+
+  join: ride_passengers {
+    type: inner
+    sql_on: ${ride_info.ride_id} = ${ride_passengers.ride_id} ;;
+    relationship: one_to_many
+  }
+
+  join: people {
+    type: left_outer
+    required_joins: [ride_passengers]
+    sql_on: ${ride_passengers.passenger_id} = ${people.id} ;;
+    relationship: one_to_one
+  }
 }
 
 explore: roles {}
@@ -245,6 +279,13 @@ explore: taxi_rides {
     type: left_outer
     sql_on: ${taxi_rides.id} = ${ride_passengers.ride_id} ;;
     relationship: one_to_many
+  }
+
+  join: people {
+    type: left_outer
+    required_joins: [ride_passengers]
+    sql_on: ${ride_passengers.passenger_id} = ${people.id} ;;
+    relationship: one_to_one
   }
 }
 

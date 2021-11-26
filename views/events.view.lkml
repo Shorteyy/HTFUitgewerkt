@@ -51,4 +51,8 @@ view: events {
     type: count
     drill_fields: [id, name, event_reviews.count]
   }
+
+  measure: numberOfAvailablePeopleOnEvent {
+    type: count
+  }
 }

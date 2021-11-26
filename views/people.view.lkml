@@ -11,7 +11,7 @@ view: people {
 
   dimension: first_name {
     type: string
-    sql: ${TABLE}.LastName ;;
+    sql: ${TABLE}.FirstName ;;
   }
 
   dimension: last_name {
