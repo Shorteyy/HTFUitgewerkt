@@ -11,12 +11,17 @@ view: people {
 
   dimension: first_name {
     type: string
-    sql: ${TABLE}.FirstName ;;
+    sql: ${TABLE}.LastName ;;
   }
 
   dimension: last_name {
     type: string
     sql: ${TABLE}.LastName ;;
+  }
+
+  dimension: full_name {
+    type:  string
+    sql:  ${first_name}|| ' ' || ${last_name} ;;
   }
 
   measure: count {
