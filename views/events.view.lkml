@@ -1,6 +1,5 @@
 view: events {
-  sql_table_name: `datasources.Events`
-    ;;
+  sql_table_name: `datasources.Events` ;;
   drill_fields: [id]
 
   dimension: id {
@@ -47,12 +46,13 @@ view: events {
     sql: ${TABLE}.StartTime ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [id, name, event_reviews.count]
+  measure: numberOfPeopleOnEvent {
+    type: count_distinct
+    sql: ${people.id} ;;
   }
 
-  measure: numberOfAvailablePeopleOnEvent {
+  measure: count {
     type: count
+    drill_fields: [id, name]
   }
 }

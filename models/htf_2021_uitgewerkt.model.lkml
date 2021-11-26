@@ -25,11 +25,7 @@ explore: aib_bnbs_nyc {
 }
 
 explore: event_reviews {
-  join: events {
-    type: left_outer
-    sql_on: ${event_reviews.event_id} = ${events.id} ;;
-    relationship: many_to_one
-  }
+
 }
 
 explore: companies {
@@ -84,7 +80,7 @@ explore: events {
   join: ride_info {
     type: inner
     required_joins: [locations]
-    sql_on: ${locations.id} = ${ride_info.dropoff_location} ;;
+    sql_on: ${locations.id} = ${ride_info.pickup_location} ;;
     relationship: one_to_one
   }
 
@@ -124,6 +120,20 @@ explore: locations {
     type: inner
     sql_on: ${locations.id} = ${ride_info_location_dropoff.dropoff_location} ;;
     relationship: many_to_one
+  }
+
+  join: ride_passengers {
+    type: left_outer
+    required_joins: [ride_info_location_pickup]
+    sql_on: ${ride_info_location_pickup.ride_id} = ${ride_passengers.ride_id};;
+    relationship: one_to_many
+  }
+
+  join: people {
+    type: left_outer
+    required_joins: [ride_passengers]
+    sql_on: ${ride_passengers.passenger_id} = ${people.id};;
+    relationship: one_to_one
   }
 }
 
@@ -202,8 +212,29 @@ explore: people {
 
   join: ride_passengers {
     type: inner
-    sql_on: ${people.id} = ${ride_passengers.ride_id};;
+    sql_on: ${people.id} = ${ride_passengers.passenger_id};;
     relationship: many_to_many
+  }
+
+  join: ride_info {
+    type: left_outer
+    required_joins: [ride_passengers]
+    sql_on: ${ride_passengers.ride_id} = ${ride_info.ride_id};;
+    relationship: one_to_one
+  }
+
+  join: events {
+    type: left_outer
+    required_joins: [ride_info]
+    sql_on: ${ride_info.pickup_location} = ${events.id} ;;
+    relationship: many_to_one
+  }
+
+  join: locations {
+    type: left_outer
+    required_joins: [events]
+    sql_on: ${events.id} = ${locations.id} ;;
+    relationship: many_to_one
   }
 }
 
