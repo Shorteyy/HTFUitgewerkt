@@ -172,7 +172,7 @@ explore: people {
 
   join: roles {
     type: left_outer
-    sql_on: ${people.id} = ${religions.id} ;;
+    sql_on: ${people.id} = ${roles.person_id} ;;
     relationship: many_to_many
   }
 
