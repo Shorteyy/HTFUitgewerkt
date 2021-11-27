@@ -273,6 +273,39 @@ explore: ride_info {
     sql_on: ${ride_passengers.passenger_id} = ${people.id} ;;
     relationship: one_to_one
   }
+
+  join: all_possible_next_ride_info {
+    from:  ride_info
+    type: left_outer
+    sql_on: ${ride_info.dropoff_location} = ${all_possible_next_ride_info.pickup_location};;
+    relationship: one_to_many
+  }
+
+  join: all_possible_next_ride_passengers {
+    from:  ride_passengers
+    type: left_outer
+    required_joins: [all_possible_next_ride_info]
+    sql_on: ${all_possible_next_ride_info.ride_id} = ${all_possible_next_ride_passengers.ride_id};;
+    relationship: one_to_many
+  }
+
+  join: the_next_ride_info {
+    from:  ride_info
+    type: inner
+    required_joins: [all_possible_next_ride_passengers, people]
+    sql_on:  ${the_next_ride_info.ride_id} = ${all_possible_next_ride_passengers.ride_id} and ${people.id} = ${all_possible_next_ride_passengers.passenger_id};;
+    relationship: one_to_one
+  }
+
+  join: the_next_ride_passengers {
+    from:  ride_passengers
+    type: inner
+    required_joins: [the_next_ride_info]
+    sql_on:  ${the_next_ride_passengers.ride_id} = ${the_next_ride_info.ride_id};;
+    relationship: one_to_one
+  }
+
+
 }
 
 explore: roles {}
