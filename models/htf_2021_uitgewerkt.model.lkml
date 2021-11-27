@@ -254,11 +254,27 @@ explore: ride_info {
     relationship: many_to_one
   }
 
+  join: pickup_event {
+    from:  events
+    type: left_outer
+    required_joins: [pickup_location]
+    sql_on: ${pickup_event.id} = ${pickup_location.id};;
+    relationship: one_to_one
+  }
+
   join: dropoff_location {
     from:  locations
     type: inner
     sql_on: ${ride_info.dropoff_location} = ${dropoff_location.id} ;;
     relationship: many_to_one
+  }
+
+  join: dropoff_event {
+    from:  events
+    type: left_outer
+    required_joins: [dropoff_location]
+    sql_on: ${dropoff_event.id} = ${dropoff_location.id};;
+    relationship: one_to_one
   }
 
   join: ride_passengers {
