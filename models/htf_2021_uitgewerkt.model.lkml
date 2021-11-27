@@ -189,6 +189,20 @@ explore: people {
   join: company_employees {
     type: left_outer
     sql_on: ${people.id} = ${company_employees.id} ;;
+    relationship: one_to_one
+  }
+
+  join: sub_departments {
+    type: left_outer
+    required_joins: [company_employees]
+    sql_on: ${company_employees.sub_department} = ${sub_departments.id_1} ;;
+    relationship: one_to_one
+  }
+
+  join: companies {
+    type: left_outer
+    required_joins: [sub_departments]
+    sql_on: ${sub_departments.id} = ${companies.id} ;;
     relationship: one_to_many
   }
 
