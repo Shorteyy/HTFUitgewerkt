@@ -80,7 +80,7 @@ explore: events {
   join: ride_info {
     type: inner
     required_joins: [locations]
-    sql_on: ${locations.id} = ${ride_info.pickup_location} ;;
+    sql_on: ${locations.id} = ${ride_info.dropoff_location} ;;
     relationship: one_to_one
   }
 
