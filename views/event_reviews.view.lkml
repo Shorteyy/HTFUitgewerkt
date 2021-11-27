@@ -1,6 +1,5 @@
 view: event_reviews {
-  sql_table_name: `datasources.EventReviews`
-    ;;
+  sql_table_name: `datasources.EventReviews` ;;
 
   dimension: description {
     type: string
