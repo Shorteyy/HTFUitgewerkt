@@ -9,7 +9,7 @@ view: roles {
 
   dimension: person_id {
     type: number
-    sql: ${TABLE}.PersonID ;;
+    sql: ${TABLE}.JobId ;;
   }
 
   measure: count {

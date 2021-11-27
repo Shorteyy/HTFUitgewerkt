@@ -324,7 +324,13 @@ explore: ride_info {
 
 }
 
-explore: roles {}
+explore: roles {
+  join: people {
+    type: left_outer
+    sql_on: ${roles.person_id} = ${people.id} ;;
+    relationship: many_to_one
+  }
+}
 
 explore: ride_passengers {
   join: taxi_rides {
