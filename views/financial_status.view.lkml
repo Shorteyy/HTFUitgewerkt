@@ -28,7 +28,7 @@ view: financial_status {
     type: sum
     sql:  ${bruto_income};;
     drill_fields: [
-      id
+      id, ride_info.ride_id
     ]
   }
 
