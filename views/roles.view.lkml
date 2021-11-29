@@ -16,4 +16,9 @@ view: roles {
     type: count
     drill_fields: []
   }
+
+  measure: job_description_list {
+    type: list
+    list_field: job_description
+  }
 }
