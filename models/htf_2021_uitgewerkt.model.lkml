@@ -97,6 +97,30 @@ explore: events {
     sql_on: ${ride_passengers.passenger_id} = ${people.id} ;;
     relationship: one_to_one
   }
+
+  join: ride_info_pickup {
+    from: ride_info
+    type: inner
+    required_joins: [locations]
+    sql_on: ${locations.id} = ${ride_info.pickup_location} ;;
+    relationship: one_to_one
+  }
+
+  join: ride_passengers_pickup {
+    from: ride_passengers
+    type: left_outer
+    required_joins: [ride_info_pickup]
+    sql_on: ${ride_info_pickup.ride_id} = ${ride_passengers_pickup.ride_id} ;;
+    relationship: one_to_many
+  }
+
+  join: people_pickup {
+    from: people
+    type: left_outer
+    required_joins: [ride_passengers_pickup]
+    sql_on: ${ride_passengers_pickup.passenger_id} = ${people_pickup.id} ;;
+    relationship: one_to_one
+  }
 }
 
 explore: financial_status {}
