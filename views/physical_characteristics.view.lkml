@@ -33,4 +33,28 @@ view: physical_characteristics {
     type: count
     drill_fields: [id]
   }
+
+  measure: heigth_in_cm_measure {
+    type: sum
+    sql:  ${height_in_cm};;
+    drill_fields: [
+      id
+    ]
+  }
+
+  measure: weigth_in_kg_measure {
+    type: sum
+    sql:  ${weight_in_kg};;
+    drill_fields: [
+      id
+    ]
+  }
+
+  measure: bmi_measure {
+    type: sum
+    sql:  ${bmi};;
+    drill_fields: [
+      id
+    ]
+  }
 }
