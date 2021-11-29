@@ -80,7 +80,7 @@ explore: events {
   join: ride_info {
     type: inner
     required_joins: [locations]
-    sql_on: ${locations.id} = ${ride_info.dropoff_location} ;;
+    sql_on: ${locations.id} = ${ride_info.pickup_location} ;;
     relationship: one_to_one
   }
 
@@ -98,29 +98,36 @@ explore: events {
     relationship: one_to_one
   }
 
-  join: ride_info_pickup {
-    from: ride_info
+  join: locations_pickup {
+    from: locations
     type: inner
-    required_joins: [locations]
-    sql_on: ${locations.id} = ${ride_info.pickup_location} ;;
+    sql_on: ${events.id} = ${locations.id};;
     relationship: one_to_one
   }
 
-  join: ride_passengers_pickup {
-    from: ride_passengers
-    type: left_outer
-    required_joins: [ride_info_pickup]
-    sql_on: ${ride_info_pickup.ride_id} = ${ride_passengers_pickup.ride_id} ;;
-    relationship: one_to_many
-  }
-
-  join: people_pickup {
-    from: people
-    type: left_outer
-    required_joins: [ride_passengers_pickup]
-    sql_on: ${ride_passengers_pickup.passenger_id} = ${people_pickup.id} ;;
-    relationship: one_to_one
-  }
+  #join: ride_info_pickup {
+  #  from: ride_info
+  #  type: inner
+  #  required_joins: [locations_pickup]
+  #  sql_on: ${locations_pickup.id} = ${ride_info.pickup_location} ;;
+  #  relationship: one_to_one
+  #}
+  #
+  #join: ride_passengers_pickup {
+  #  from: ride_passengers
+  #  type: left_outer
+  #  required_joins: [ride_info_pickup]
+  #  sql_on: ${ride_info_pickup.ride_id} = ${ride_passengers_pickup.ride_id} ;;
+  #  relationship: one_to_many
+  #}
+  #
+  #join: people_pickup {
+  #  from: people
+  #  type: left_outer
+  #  required_joins: [ride_passengers_pickup]
+  #  sql_on: ${ride_passengers_pickup.passenger_id} = ${people_pickup.id} ;;
+  #  relationship: one_to_one
+  #}
 }
 
 explore: financial_status {}
