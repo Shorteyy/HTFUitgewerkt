@@ -112,6 +112,13 @@ explore: financial_status {
     sql_on: ${people.id} = ${financial_status.id} ;;
     relationship: many_to_one
   }
+
+  join: ride_passengers {
+    type: left_outer
+    required_joins: [people]
+    sql_on: ${people.id} = ${ride_passengers.passenger_id} ;;
+    relationship: one_to_many
+  }
 }
 
 explore: locations {
