@@ -261,7 +261,7 @@ explore: people {
     type: left_outer
     required_joins: [ride_passengers]
     sql_on: ${ride_passengers.ride_id} = ${ride_info.ride_id};;
-    relationship: one_to_one
+    relationship: many_to_one
   }
 
   join: events {
