@@ -26,4 +26,11 @@ view: event_reviews {
     type: count
     drill_fields: [events.id, events.name]
   }
+
+  measure: avg_reating
+  {
+    type: average
+    sql:  ${rating};;
+    drill_fields: [events.id, events.name]
+  }
 }

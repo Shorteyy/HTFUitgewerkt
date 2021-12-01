@@ -18,4 +18,11 @@ view: ages {
     type: count
     drill_fields: [id]
   }
+
+  measure: age_measure {
+    type: sum
+    sql: ${age} ;;
+  }
+
+
 }

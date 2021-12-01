@@ -18,4 +18,9 @@ view: gender {
     type: count
     drill_fields: [id]
   }
+
+  measure: gender_list {
+    type: list
+    list_field: gender
+  }
 }
