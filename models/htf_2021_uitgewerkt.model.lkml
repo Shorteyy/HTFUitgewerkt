@@ -290,7 +290,7 @@ explore: ride_info {
 
   join: pickup_location {
     from:  locations
-    type: inner
+    type: left_outer
     sql_on: ${ride_info.pickup_location} = ${pickup_location.id} ;;
     relationship: many_to_one
   }
@@ -305,7 +305,7 @@ explore: ride_info {
 
   join: dropoff_location {
     from:  locations
-    type: inner
+    type: left_outer
     sql_on: ${ride_info.dropoff_location} = ${dropoff_location.id} ;;
     relationship: many_to_one
   }
